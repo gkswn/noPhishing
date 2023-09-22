@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+    <div class=e1_2>
+        <div class="e1_3"></div><span  class="e1_4">No Phishing<br>
+    보이스 피싱 판별 시스템</span>
+        <div class="e1_5"></div>
+        <span id="startButton" class="e1_6">시작하기</span>
+        <form action="/receive" method="post">
+            <label for="text">의심 문장을 입력해주세요</label><br>
+            <input type="text" id="text" name="text"><br><br>
+            <input type="submit" value="보내기">
+        </form>
+        <span  class="e1_7">
+            1. 시작 버튼을 누르면 녹음이 시작됩니다. <br>
+            2. 녹음된 대화가 보이스피싱인지 판별합니다.<br>
+            3. 판별한 결과를 반환합니다.
+        </span>
+    </div>
+    <!-- start of missed-call.com spam number search form-->
+    <style type="text/css">
+    .missed_call_form_querybox_bg {
+       width:165px;
+       background-image: url(http://www.missed-call.com/images/mc_sf_mini_bg.gif);
+       background-repeat: no-repeat;
+    }
+    .missed_call_form_querybox {
+       padding: 0px;
+       border-style: none;
+       border: 0px none;
+       margin: 3px 0px 0px 8px;
+       overflow: hidden;
+       font-family: Gulim;
+       font-size: 9pt;
+       width: 95%;
+    }
+    .missed_call_tight { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; }
+    </style>
+    
+    <div id="missed_call_spam_search_form" class="missed_call_tight">
+    <form action="http://www.missed-call.com/" method="get" target="missed_call_window" class="missed_call_tight">
+    <table class="missed_call_tight" cellspacing="0" cellpadding="0"><tr><td class="missed_call_form_querybox_bg" align="left"><input class="missed_call_form_querybox" name="q" maxlength="20" type="text" value="스팸 전화번호 검색" onclick="if (this.value=='스팸 전화번호 검색') this.value='';" onblur="if (this.value=='') this.value='스팸 전화번호 검색';" title="스팸으로 의심되는 전화번호를 넣고 엔터를 누르세요" /></td><td><input type="image" class="new_search_box_button" src="http://www.missed-call.com/images/new_search_btn_18_off.png"  onmouseover="javascript:this.src='http://www.missed-call.com/images/new_search_btn_18_on.png';" onmouseout="javascript:this.src='http://www.missed-call.com/images/new_search_btn_18_off.png';" style="cursor:pointer" align="middle" alt="Go!" /><input type="hidden" name="v" value="1j"/></td></tr></table>
+    </form>
+    </div>
+    <!-- end of missed-call.com spam number search form-->
+
+    <style>
+    .e1_2 { 
+        background-color:rgba(255, 255, 255, 1);
+        width:1440px;
+        height:1024px;
+        position:absolute;
+    }
+    .e1_3 { 
+        background-color:rgba(165.74999392032623, 165.74999392032623, 165.74999392032623, 1);
+        width:1056px;
+        height:202px;
+        position:absolute;
+        left:193px;
+        top:56px;
+    }
+    .e1_4 { 
+        color:rgba(0, 0, 0, 1);
+        width:702px;
+        height:97px;
+        position:absolute;
+        left:370px;
+        top:109px;
+        font-family:Inter;
+        text-align:center;
+        font-size:40px;
+        letter-spacing:0;
+    }
+    .e1_5 { 
+        background-color:rgba(217.0000022649765, 217.0000022649765, 217.0000022649765, 1);
+        width:323px;
+        height:91px;
+        position:absolute;
+        left:555px;
+        top:722px;
+        border-top-left-radius:25px;
+        border-top-right-radius:25px;
+        border-bottom-left-radius:25px;
+        border-bottom-right-radius:25px;
+    }
+    .e1_6 { 
+        color:rgba(0, 0, 0, 1);
+        width:263px;
+        height:52px;
+        position:absolute;
+        left:589px;
+        top:744px;
+        font-family:Inter;
+        text-align:center;
+        font-size:40px;
+        letter-spacing:0;
+    }
+    .e1_7 { 
+        color:rgba(0, 0, 0, 1);
+        width:793px;
+        height:168px;
+        position:absolute;
+        left:320px;
+        top:425px;
+        font-family:Inter;
+        text-align:center;
+        font-size:40px;
+        letter-spacing:0;
+    }
+
+  </style>
+
+<script>
+    document.getElementById('startButton').addEventListener('click', function() {
+        window.location.href = './loading.html'; // 여기에 원하는 URL을 입력하세요.
+    });
+</script>
