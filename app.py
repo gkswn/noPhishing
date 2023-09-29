@@ -10,15 +10,28 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
 import re
 import pickle
+import json
+from flaskext.mysql import MySQL
 
 app = Flask(__name__)
 
+mysql = MySQL()
+
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = '3048'
+app.config['MYSQL_DATABASE_DB'] = 'board'
+
+mysql.init_app(app)
+
+cursor = mysql.connect().cursor()
+
+# 메인 화면
 @app.route("/")
 def main():
     return render_template('index.html')
 
-
-@app.route("/receive", methods=['POST'])
+# 인공지능 결과 보기
+@app.route("/result", methods=['POST'])
 def send_text():
     loaded_model = load_model('best_model.h5')
     max_len = 1000
@@ -61,16 +74,64 @@ def send_text():
         return render_template('return3-ok.html',result = "{:.2f}".format(result))
     
 
-@app.route("/result", methods=['POST'])
-def result():
-    text = request.form.get('text')
-    if float(text) >= 75:
-        return render_template('return1-danger.html', text=text)
-    elif float(text) >= 50:
-        return render_template('return2-middle.html', text=text)
-    else:
-        return render_template('return3-ok.html', text=text)
+#게시판 조회
+@app.route('/board',methods=['GET'])
+def board():
+    cursor.execute("select name, title from board.board")
 
+    res = []
+    col = tuple([d[0] for d in cursor.description])
+
+
+    for row in cursor:
+        res.append(dict(zip(col, row)))
+
+    print(res)
+    return json.dumps(res)
+
+# 글 쓰기 화면
+@app.route('/board/write', methods=["GET"])
+def write():
+    return render_template("write.html")
+
+# 글 게시하기
+@app.route('/board/post', methods=["POST"])
+def posting():
+    data = request.get_json()
+
+    name = data['name']
+    title = data['title']
+    content = data['content']
+
+    sql = "INSERT INTO board.board (name, title, content) VALUES (%s, %s, %s)"
+    cursor.execute(sql, (name, title, content))
+    cursor.connection.commit()
+
+    return jsonify({"message": "Post created successfully"}), 201
+
+#글 보기
+@app.route('/board/<id>', methods=["GET"])
+def watch(id):
+    sql = "select name, title, content from board.board where id = %s"
+    cursor.execute(sql,(id,))  
+    res = []
+    col = tuple([d[0] for d in cursor.description])
+
+    for row in cursor:
+        res.append(dict(zip(col, row)))
+
+    print(res)
+    return json.dumps(res)
+
+# 번호 검색
+@app.route('/search', methods=["GET"])
+def search():
+    return render_template("test.html")
+
+# 예방 영상
+@app.route('/video', methods=["GET"])
+def video():
+    return render_template("youtube.html")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
