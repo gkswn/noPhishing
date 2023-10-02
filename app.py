@@ -123,11 +123,11 @@ def posting():
 def watch(id):
     sql = "select name, title, content from board.board where id = %s"
     cursor.execute(sql,(id,))  
-    res = []
-    col = tuple([d[0] for d in cursor.description])
+    
+    col = [x[0] for x in cursor.description]
 
     for row in cursor:
-        res.append(dict(zip(col, row)))
+        res = dict(zip(col, row))
 
     print(res)
     return json.dumps(res)
