@@ -35,6 +35,10 @@ def main():
 # 인공지능 결과 보기
 @app.route("/result", methods=['POST'])
 def send_text():
+    data = request.get_json()
+    content = data['content']
+
+
     loaded_model = load_model('best_model.h5')
     max_len = 1000
     stopword = preprocessing.make_stopword()
@@ -54,10 +58,10 @@ def send_text():
         pad_new = pad_sequences(encoded, maxlen = max_len) # 패딩
         score = float(loaded_model.predict(pad_new)[0]) # 예측
         percentage = score*100 # 보이스 피싱 확률 계산
-        return percentage,score
+        return percentage
     
-    text = request.form.get('text')
-    result,score = sentiment_predict(text)
+    # text = request.form.get('text')
+    result = sentiment_predict(content)
     if(result >= 75):
         # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
         # print("*경고* 보이스 피싱 입니다. 즉시 경찰서에 연락하거나 전화를 끊으십시오.")
