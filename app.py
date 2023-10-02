@@ -15,7 +15,7 @@ from flaskext.mysql import MySQL
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r'/*': {'origins': 'http://localhost:3000'}})
 
 mysql = MySQL()
 
@@ -90,7 +90,7 @@ def send_text():
 #게시판 조회
 @app.route('/board',methods=['GET'])
 def board():
-    cursor.execute("select name, title from board.board")
+    cursor.execute("select * from board.board")
 
     res = []
     col = tuple([d[0] for d in cursor.description])
@@ -100,7 +100,7 @@ def board():
         res.append(dict(zip(col, row)))
 
     print(res)
-    return json.dumps(res)
+    return jsonify(res)
 
 # 글 쓰기 화면
 @app.route('/board/write', methods=["GET"])
@@ -125,7 +125,7 @@ def posting():
 #글 보기
 @app.route('/board/<id>', methods=["GET"])
 def watch(id):
-    sql = "select name, title, content from board.board where id = %s"
+    sql = "select * from board.board where id = %s"
     cursor.execute(sql,(id,))  
     
     col = [x[0] for x in cursor.description]
@@ -134,7 +134,7 @@ def watch(id):
         res = dict(zip(col, row))
 
     print(res)
-    return json.dumps(res)
+    return jsonify(res)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
