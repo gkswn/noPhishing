@@ -12,8 +12,10 @@ import re
 import pickle
 import json
 from flaskext.mysql import MySQL
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 mysql = MySQL()
 
@@ -57,21 +59,28 @@ def send_text():
     text = request.form.get('text')
     result,score = sentiment_predict(text)
     if(result >= 75):
-        print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
-        print("*경고* 보이스 피싱 입니다. 즉시 경찰서에 연락하거나 전화를 끊으십시오.")
-        return render_template('return1-danger.html',result="{:.2f}".format(result))
+        # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
+        # print("*경고* 보이스 피싱 입니다. 즉시 경찰서에 연락하거나 전화를 끊으십시오.")
+        result="{:.2f}".format(result)
+        return result
     elif(result >= 50):
-        print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
-        print("*주의* 보이스피싱 위험 단계 입니다. 보이스피싱 같다면 전화를 끊으십시오.")
-        return render_template('return2-mid.html',result = "{:.2f}".format(result))
+        # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
+        # print("*주의* 보이스피싱 위험 단계 입니다. 보이스피싱 같다면 전화를 끊으십시오.")
+        # return render_template('return2-mid.html',result = "{:.2f}".format(result))
+        result="{:.2f}".format(result)
+        return result
     elif(result >= 25):
-        print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
-        print("보이스 피싱 의심 단계 입니다.")
-        return render_template('return3-ok.html',result = "{:.2f}".format(result))
+        # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
+        # print("보이스 피싱 의심 단계 입니다.")
+        # return render_template('return3-ok.html',result = "{:.2f}".format(result))
+        result="{:.2f}".format(result)
+        return result
     else:
-        print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
-        print("보이스 피싱 안전 단계 입니다.")
-        return render_template('return3-ok.html',result = "{:.2f}".format(result))
+        # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
+        # print("보이스 피싱 안전 단계 입니다.")
+        # return render_template('return3-ok.html',result = "{:.2f}".format(result))
+        result="{:.2f}".format(result)
+        return result
     
 
 #게시판 조회
@@ -123,17 +132,15 @@ def watch(id):
     print(res)
     return json.dumps(res)
 
-# 번호 검색
-@app.route('/search', methods=["GET"])
-def search():
-    return render_template("test.html")
+# # 번호 검색
+# @app.route('/search', methods=["GET"])
+# def search():
+#     return render_template("test.html")
 
-# 예방 영상
-@app.route('/video', methods=["GET"])
-def video():
-    return render_template("youtube.html")
+# # 예방 영상
+# @app.route('/video', methods=["GET"])
+# def video():
+#     return render_template("youtube.html")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
-    
