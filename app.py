@@ -120,7 +120,7 @@ def posting():
     cursor.execute(sql, (name, title, content))
     cursor.connection.commit()
 
-    return jsonify({"message": "Post created successfully"}), 201
+    return jsonify({"message": "글이 정상적으로 등록되었습니다."}), 201
 
 #글 보기
 @app.route('/board/<id>', methods=["GET"])
@@ -135,16 +135,6 @@ def watch(id):
 
     print(res)
     return json.dumps(res)
-
-# # 번호 검색
-# @app.route('/search', methods=["GET"])
-# def search():
-#     return render_template("test.html")
-
-# # 예방 영상
-# @app.route('/video', methods=["GET"])
-# def video():
-#     return render_template("youtube.html")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
