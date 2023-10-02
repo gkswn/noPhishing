@@ -62,25 +62,25 @@ def send_text():
         # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
         # print("*경고* 보이스 피싱 입니다. 즉시 경찰서에 연락하거나 전화를 끊으십시오.")
         result="{:.2f}".format(result)
-        return result
+        return jsonify({"result": result})
     elif(result >= 50):
         # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
         # print("*주의* 보이스피싱 위험 단계 입니다. 보이스피싱 같다면 전화를 끊으십시오.")
         # return render_template('return2-mid.html',result = "{:.2f}".format(result))
         result="{:.2f}".format(result)
-        return result
+        return jsonify({"result": result})
     elif(result >= 25):
         # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
         # print("보이스 피싱 의심 단계 입니다.")
         # return render_template('return3-ok.html',result = "{:.2f}".format(result))
         result="{:.2f}".format(result)
-        return result
+        return jsonify({"result": result})
     else:
         # print("{:.2f}% 확률로 보이스피싱입니다.\n".format(score * 100))
         # print("보이스 피싱 안전 단계 입니다.")
         # return render_template('return3-ok.html',result = "{:.2f}".format(result))
         result="{:.2f}".format(result)
-        return result
+        return jsonify({"result": result})
     
 
 #게시판 조회
