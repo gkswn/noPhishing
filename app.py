@@ -81,11 +81,6 @@ def board():
     print(res)
     return jsonify(res)
 
-# 글 쓰기 화면
-@app.route('/board/write', methods=["GET"])
-def write():
-    return render_template("write.html")
-
 # 글 게시하기
 @app.route('/board/post', methods=["POST"])
 def posting():
